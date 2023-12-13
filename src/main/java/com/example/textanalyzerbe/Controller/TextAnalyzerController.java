@@ -11,7 +11,7 @@ import java.util.HashMap;
                 "http://localhost:4200"
         },
         methods = {
-                RequestMethod.POST
+                RequestMethod.GET
         }
 )
 @RestController
@@ -26,8 +26,8 @@ public class TextAnalyzerController {
      * @param text the text to analyze
      * @return a HashMap that has all the vowels as keys and their respective counts as values
      */
-    @PostMapping(path = "/analyzeVowels")
-    public HashMap<Character, Integer> analyzeTextForVowels(@RequestBody String text) {
+    @GetMapping(path = "/analyzeVowels")
+    public HashMap<Character, Integer> analyzeTextForVowels(@RequestParam String text) {
 
         return service.analyzeTextForVowels(text);
     }
@@ -38,8 +38,8 @@ public class TextAnalyzerController {
      * @param text the text to analyze
      * @return a HashMap that has all the consonants as keys and their respective counts as values
      */
-    @PostMapping(path = "/analyzeConsonants")
-    public HashMap<Character, Integer> analyzeTextForConsonants(@RequestBody String text) {
+    @GetMapping(path = "/analyzeConsonants")
+    public HashMap<Character, Integer> analyzeTextForConsonants(@RequestParam String text) {
 
         return service.analyzeTextForConsonants(text);
     }
