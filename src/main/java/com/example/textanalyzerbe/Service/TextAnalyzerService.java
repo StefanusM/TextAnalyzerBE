@@ -39,7 +39,7 @@ public class TextAnalyzerService {
    * @return a Map that has all the vowels or consonants as keys and their respective counts as values
    */
   public Map<Character, Integer> analyzeTextForVowels(String text) {
-    Map<Character, Integer> vowels = initializeVowelsMap();
+    Map<Character, Integer> vowels = initializeVowelsOrConsonantsMap(true);
 
     return addCharactersToMapValues(text, vowels);
   }
@@ -52,7 +52,7 @@ public class TextAnalyzerService {
    * @return a Map that has all the consonants or consonants as keys and their respective counts as values
    */
   public Map<Character, Integer> analyzeTextForConsonants(String text) {
-    Map<Character, Integer> consonants = initializeConsonantsMap();
+    Map<Character, Integer> consonants = initializeVowelsOrConsonantsMap(false);
 
     return addCharactersToMapValues(text, consonants);
   }
@@ -77,29 +77,26 @@ public class TextAnalyzerService {
   }
 
   /**
-   * Creates a Map that has all vowels as keys and zeros as values
+   * Creates a Map that based on the isVowels parameter either has all vowels or all consonants as keys
+   * and zeros as values
    *
+   * @param isVowels determines if the keys of the map are all consonants or all vowels
    * @return the created map
    */
-  private Map<Character, Integer> initializeVowelsMap() {
-    Map<Character, Integer> vowelsMap = new HashMap<>();
-    for (char c : vowelsArray) {
-      vowelsMap.put(c, 0);
+  private Map<Character, Integer> initializeVowelsOrConsonantsMap(boolean isVowels) {
+    Map<Character, Integer> initializedMap = new HashMap<>();
+
+    char[] characterArray = consonantArray;
+
+    if (isVowels) {
+      characterArray = vowelsArray;
     }
-    return vowelsMap;
+
+    for (char c : characterArray) {
+      initializedMap.put(c, 0);
+    }
+    return initializedMap;
   }
 
-  /**
-   * Creates a Map that has all consonats as keys and zeros as values
-   *
-   * @return the created map
-   */
-  private Map<Character, Integer> initializeConsonantsMap() {
-    Map<Character, Integer> vowelsMap = new HashMap<>();
-    for (char c : consonantArray) {
-      vowelsMap.put(c, 0);
-    }
-    return vowelsMap;
-  }
 
 }
