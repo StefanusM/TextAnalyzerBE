@@ -11,7 +11,7 @@ import java.util.Map;
                 "http://localhost:4200"
         },
         methods = {
-                RequestMethod.GET
+                RequestMethod.POST
         }
 )
 @RestController
@@ -26,8 +26,8 @@ public class TextAnalyzerController {
      * @param text the text to analyze
      * @return a Map that has all the vowels as keys and their respective counts as values
      */
-    @GetMapping(path = "/analyze-vowels")
-    public Map<Character, Integer> analyzeTextForVowels(@RequestParam String text) {
+    @PostMapping(path = "/analyze-vowels")
+    public Map<Character, Integer> analyzeTextForVowels(@RequestBody String text) {
 
         return service.analyzeTextForVowels(text);
     }
@@ -38,8 +38,8 @@ public class TextAnalyzerController {
      * @param text the text to analyze
      * @return a Map that has all the consonants as keys and their respective counts as values
      */
-    @GetMapping(path = "/analyze-consonants")
-    public Map<Character, Integer> analyzeTextForConsonants(@RequestParam String text) {
+    @PostMapping(path = "/analyze-consonants")
+    public Map<Character, Integer> analyzeTextForConsonants(@RequestBody String text) {
 
         return service.analyzeTextForConsonants(text);
     }
