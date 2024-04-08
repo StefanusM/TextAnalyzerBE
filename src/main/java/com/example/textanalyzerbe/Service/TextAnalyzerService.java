@@ -3,12 +3,13 @@ package com.example.textanalyzerbe.Service;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class TextAnalyzerService {
 
-  private final char[] vowelsArray = "AEIOU".toCharArray();
-  private final char[] consonantArray = "BCDFGHJKLMNPQRSTVWXYZ".toCharArray();
+  private static final char[] vowelsArray = "AEIOU".toCharArray();
+  private static final char[] consonantArray = "BCDFGHJKLMNPQRSTVWXYZ".toCharArray();
 
   public TextAnalyzerService() {
   }
@@ -19,9 +20,9 @@ public class TextAnalyzerService {
    *
    * @param type can be 'vowels' or 'consonants' otherwise an IllegalArgumentException is thrown
    * @param text the text to analyze
-   * @return a HashMap that has all the vowels or consonants as keys and their respective counts as values
+   * @return a Map that has all the vowels or consonants as keys and their respective counts as values
    */
-  public HashMap<Character, Integer> analyze(String type, String text) {
+  public Map<Character, Integer> analyze(String type, String text) {
     if (type.equals("vowels")) {
       return analyzeTextForVowels(text);
     } else if (type.equals("consonants")) {
@@ -35,12 +36,12 @@ public class TextAnalyzerService {
    * calculates how many times all vowels appear in the text All letters are counted as uppercase.
    *
    * @param text the text to analyze
-   * @return a HashMap that has all the vowels or consonants as keys and their respective counts as values
+   * @return a Map that has all the vowels or consonants as keys and their respective counts as values
    */
-  public HashMap<Character, Integer> analyzeTextForVowels(String text) {
-    HashMap<Character, Integer> vowels = initializeVowelsHashMap();
+  public Map<Character, Integer> analyzeTextForVowels(String text) {
+    Map<Character, Integer> vowels = initializeVowelsMap();
 
-    return addCharactersToHashMapValues(text, vowels);
+    return addCharactersToMapValues(text, vowels);
   }
 
   /**
@@ -48,12 +49,12 @@ public class TextAnalyzerService {
    * so "ß" counts as two S
    *
    * @param text the text to analyze
-   * @return a HashMap that has all the consonants or consonants as keys and their respective counts as values
+   * @return a Map that has all the consonants or consonants as keys and their respective counts as values
    */
-  public HashMap<Character, Integer> analyzeTextForConsonants(String text) {
-    HashMap<Character, Integer> consonants = initializeConsonantsHashMap();
+  public Map<Character, Integer> analyzeTextForConsonants(String text) {
+    Map<Character, Integer> consonants = initializeConsonantsMap();
 
-    return addCharactersToHashMapValues(text, consonants);
+    return addCharactersToMapValues(text, consonants);
   }
 
   /**
@@ -64,7 +65,7 @@ public class TextAnalyzerService {
    * @param characterFrequency a Map that determines the characters of interest, by having them as keys. The counts are added to the existing values of this map
    * @return The original map with the added counts for each character
    */
-  public HashMap<Character, Integer> addCharactersToHashMapValues(String text, HashMap<Character, Integer> characterFrequency) {
+  public Map<Character, Integer> addCharactersToMapValues(String text, Map<Character, Integer> characterFrequency) {
     char[] chars = text.toUpperCase().toCharArray();
     for (char aChar : chars) {
       if (characterFrequency.containsKey(aChar)) {
@@ -80,12 +81,12 @@ public class TextAnalyzerService {
    *
    * @return the created map
    */
-  private HashMap<Character, Integer> initializeVowelsHashMap() {
-    HashMap<Character, Integer> vowelsHashMap = new HashMap<>();
+  private Map<Character, Integer> initializeVowelsMap() {
+    Map<Character, Integer> vowelsMap = new HashMap<>();
     for (char c : vowelsArray) {
-      vowelsHashMap.put(c, 0);
+      vowelsMap.put(c, 0);
     }
-    return vowelsHashMap;
+    return vowelsMap;
   }
 
   /**
@@ -93,12 +94,12 @@ public class TextAnalyzerService {
    *
    * @return the created map
    */
-  private HashMap<Character, Integer> initializeConsonantsHashMap() {
-    HashMap<Character, Integer> vowelsHashMap = new HashMap<>();
+  private Map<Character, Integer> initializeConsonantsMap() {
+    Map<Character, Integer> vowelsMap = new HashMap<>();
     for (char c : consonantArray) {
-      vowelsHashMap.put(c, 0);
+      vowelsMap.put(c, 0);
     }
-    return vowelsHashMap;
+    return vowelsMap;
   }
 
 }
